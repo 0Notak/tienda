@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Orden</title>
+</head>
+<body>
+    {% extends 'menu.html' %}
+
+    {% block  content %}
+<h1>Detalle de la Orden #{{ orden.id }}</h1>
+
+<p><strong>Fecha de la Orden:</strong> {{ orden.fecha_creacion }}</p>
+<p><strong>Total:</strong> ${{ orden.total }}</p>
+
+<h2>Productos en la Orden</h2>
+<table class="table-danger" border="1">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td >{{ item.producto.nombre }}</td>
+            <td >{{ item.cantidad }}</td>
+            <td>${{ item.precio_unitario }}</td>
+            <td>${{ item.cantidad }} X {{ item.precio_unitario }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="/">Volver a la tienda</a>
+{%endblock%}
+</body>
+</html>

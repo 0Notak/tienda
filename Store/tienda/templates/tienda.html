@@ -1,0 +1,20 @@
+{% extends 'menu.html' %} {% block content %}
+
+{% for producto in productos %}
+<div class="category-image">
+<img
+            src=/media/"{{ producto.imagen | safe }}"
+            class="card-img-top"
+             /></div>
+<tr>
+   
+    <td>{{ producto.nombre | safe }}</td>
+    <td>{{ producto.descripcion | safe}}</td>
+    <td>{{ producto.precio | safe}}</td>
+    <td>{{ producto.inventario | safe }}</td>
+</tr>
+
+{% endfor %}
+
+
+{% endblock %}

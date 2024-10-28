@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+</head>
+<body>
+    {% extends 'menu.html' %} {% block content %}
+
+<div class="row">
+    <div class="col-md-3">
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          Accordion Item #1
+        </button>
+      </h2>
+      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+          Accordion Item #2
+        </button>
+      </h2>
+      <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+          Accordion Item #3
+        </button>
+      </h2>
+      <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      {% for producto in productos %}
+      <div class="col-md-4">
+        
+        <img src="/media/{{ producto.imagen | safe }}" class="img-fluid rounded-start" alt="image">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">{{ producto.descripcion }}</p>
+            <p class="card-text">{{ producto.precio }}</p>
+            <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn btn-primary">Añadir al carrito</a>
+           
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+  
+
+  <div class="col-md-8 start-40">
+<h1>Productos Disponibles</h1>
+
+<table class="" border="1">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td> 
+               <div class="col-md-3">
+        
+              <img src="/media/{{ producto.imagen | safe }}" class="img-fluid rounded-start" alt="image">
+            </div>
+          </td>
+
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>${{ producto.precio }}</td>
+            <td><a href="{% url 'agregar_al_carrito' producto.id %}">Añadir al carrito</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay productos disponibles en este momento.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'ver_carrito' %}">Ver carrito</a>
+
+</div></div>
+{% endblock  %}
+</body>
+</html>

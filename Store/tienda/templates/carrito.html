@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+</head>
+<body>
+
+
+    {% extends 'menu.html' %} {% block content %}
+
+<div class="row g-0">
+<h1>Carrito de Compras</h1>
+
+<table class="table-danger table-bordered border-danger col-lg-10"  border="4">
+    <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Usamos un ciclo for para iterar sobre los productos del carrito -->
+        {% for item in items %}
+
+   
+
+
+        <tr>
+            <td><div class="col-md-1"><img src="/media/{{ item.producto.imagen | safe }}" class="img-fluid rounded-start" ></div></td>
+        
+            <td>{{ item.producto.nombre }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ item.producto.precio }}</td>
+            <td>${{ item.cantidad }} x {{ item.producto.precio }}</td>
+            <td><a href="{% url 'eliminar_del_carrito' item.id  %}" class="btn btn-danger">Eliminar</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">Tu carrito está vacío</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Total del carrito -->
+<h3>Total: ${{ total }}</h3>
+
+<!-- Botón para finalizar la compra -->
+<a href="{% url 'finalizar_compra' %}" class="btn btn-danger col-lg-10">Finalizar Compra</a>
+<a href="{% url 'tienda' %}" class="btn btn-primary col-lg-10"> Regresar a la tienda</a>
+
+</div>
+{% endblock %}
+
+
+</body>
+</html>
